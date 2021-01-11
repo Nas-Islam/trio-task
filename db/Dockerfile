@@ -2,8 +2,8 @@
 FROM mysql:5.7
 
 # Add a database
-ENV MYSQL_DATABASE users
+ENV MYSQL_DATABASE=flask-db
 # Add the content of the .sql file to your image
 # All scripts in docker-entrypoint-initdb.d/ are automatically
 # executed during container startup
-COPY . /docker-entrypoint-initdb.d/
+COPY CreateTable.sql /docker-entrypoint-initdb.d/

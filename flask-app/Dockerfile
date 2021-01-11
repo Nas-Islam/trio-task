@@ -5,7 +5,7 @@ RUN apt update
 # Copy contents into image
 COPY . . 
 # run pip dependencies
-RUN pip3 install -r requirements.txt 
+RUN pip install flask SQLAlchemy pymysql  
 # Expose correct port
 EXPOSE 5000
 # Create an entrypoint
