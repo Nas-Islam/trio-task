@@ -6,6 +6,10 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: flask-db
+    volumes:
+    - type: volume
+      source: trio-mysql
+      target: /var/lib/mysql
   flask-app:
     build: ./flask-app
     environment:
@@ -24,3 +28,6 @@ services:
     - type: bind
       source: ./nginx/nginx.conf
       target: /etc/nginx/nginx.conf
+volumes:
+  trio-mysql:
+    external: false
