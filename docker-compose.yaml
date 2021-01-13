@@ -1,8 +1,9 @@
-version: '3.7'
+version: '3.8'
 services:
   mysql:
     container_name: mysql
     build: ./db
+    image: inaserul/trio-db:latest
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: flask-db
@@ -11,15 +12,22 @@ services:
       source: trio-mysql
       target: /var/lib/mysql
   flask-app:
+    container_name: flask-app
     build: ./flask-app
+    image: inaserul/trio-flask-app:latest
     environment:
       DATABASE_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    deploy:
+      replicas: 4
     ports:
     - target: 5000
       published: 5000
       protocol: tcp
   nginx:
+    container_name: nginx
     image: nginx:latest
+    deploy:
+      replicas: 4
     ports:
     - target: 80
       published: 80
